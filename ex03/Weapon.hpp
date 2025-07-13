@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 19:34:34 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/07/12 21:16:41 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/07/13 15:13:16 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 class Weapon {
  public:
-    explicit Weapon(std::string type);
+    explicit Weapon(const std::string& type);
     ~Weapon();
     const std::string& getType() const;
-    void setType(std::string str);
+    void setType(const std::string& str);
  private:
     std::string type;
 };
