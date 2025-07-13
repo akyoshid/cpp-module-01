@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 10:54:59 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/07/13 13:20:16 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/07/13 19:45:34 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Sed {
     std::ofstream ofs;
     bool open_input_file();
     bool open_output_file();
-    std::string* replace(std::string* line);
+    std::string replace(const std::string &line) const;
 };
 
 #endif

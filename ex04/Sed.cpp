@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 13:02:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/07/13 13:24:24 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/07/13 19:48:51 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ bool Sed::execute() {
         return (false);
     std::string line;
     while (std::getline(ifs, line)) {
-        ofs << *(replace(&line));
+        ofs << replace(line);
         if (!ifs.eof())
-            ofs << std::endl;
+            ofs << '\n';
         if (ofs.fail()) {
             std::cerr
                 << "sed: can't write to output file: " << ofn << std::endl;
@@ -70,14 +70,19 @@ bool Sed::open_output_file() {
     return (true);
 }
 
-std::string* Sed::replace(std::string* line) {
-    if (str_search.empty())
+std::string Sed::replace(const std::string &line) const {
+    if (str_search.empty() || str_search == str_replace)
         return line;
-    size_t pos = 0;
-    while ((pos = (*line).find(str_search, pos)) != std::string::npos) {
-        (*line).erase(pos, str_search.length());
-        (*line).insert(pos, str_replace);
-        pos += str_replace.length();
+    std::string result;
+    result.reserve(line.length() * 2);
+    size_t start_pos = 0;
+    size_t match_pos = 0;
+    while (std::string::npos
+        != (match_pos = line.find(str_search, start_pos))) {
+        result.append(line, start_pos, match_pos - start_pos);
+        result.append(str_replace);
+        start_pos = match_pos + str_search.length();
     }
-    return line;
+    result.append(line, start_pos);
+    return result;
 }
